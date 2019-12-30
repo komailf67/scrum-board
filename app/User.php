@@ -26,7 +26,7 @@
          * @var array
          */
         protected $hidden = [
-            'users_password', 'remember_token',
+            'password', 'remember_token',
         ];
 
         /**

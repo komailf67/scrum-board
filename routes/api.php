@@ -32,6 +32,11 @@
         function (){
             Route::post('register', 'AuthController@register');
             Route::post('login', 'AuthController@login');
-        }
 
+        }
     );
+    
+
+    Route::group(['middleware' => ['jwt.verify']], function() {
+        Route::get('/', 'HomeController@getProjects');
+    });
