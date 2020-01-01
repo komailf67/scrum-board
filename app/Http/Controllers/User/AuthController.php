@@ -86,4 +86,12 @@
                 'token' =>$jwtToken,
             ]);
         }
+        public function logout()
+        {
+            auth('users')->logout();
+            // $request->user()->token()->revoke();
+            return response()->json([
+                'message' => 'Successfully logged out'
+        ]);
+        }
     }

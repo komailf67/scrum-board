@@ -32,11 +32,12 @@
         function (){
             Route::post('register', 'AuthController@register');
             Route::post('login', 'AuthController@login');
-
+            
         }
     );
     
 
     Route::group(['middleware' => ['jwt.verify']], function() {
+        Route::get('logout', 'User\AuthController@logout');
         Route::get('/', 'HomeController@getProjects');
     });
