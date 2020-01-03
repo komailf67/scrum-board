@@ -94,4 +94,12 @@
                 'message' => 'Successfully logged out'
         ]);
         }
+        public function isTokenValid(Request $request)
+        {
+            return response()->json([
+                "success" => true,
+                "message" =>'token-is-valid',
+                ]);
+            
+        }
     }

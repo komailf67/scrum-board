@@ -40,4 +40,5 @@
     Route::group(['middleware' => ['jwt.verify']], function() {
         Route::get('logout', 'User\AuthController@logout');
         Route::get('/', 'HomeController@getProjects');
+        Route::get('/is-token-valid', 'User\AuthController@isTokenValid');
     });
