@@ -21,7 +21,6 @@ class Application extends Component {
             '/api/is-token-valid',
             config
         ).then(response =>{
-            console.log(this.state.isUserLoggedIn);
             let{success , message} = response.data;
             if(success){
                 this.props.dispatch(isTokenValid(token));

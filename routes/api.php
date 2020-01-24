@@ -41,4 +41,6 @@
         Route::get('logout', 'User\AuthController@logout');
         Route::get('/', 'HomeController@getProjects');
         Route::get('/is-token-valid', 'User\AuthController@isTokenValid');
+        Route::get('/projects', 'Panel\ProjectsController@getProjects');
+        Route::post('/projects/save-new-project', 'Panel\ProjectsController@saveNewProject');
     });
