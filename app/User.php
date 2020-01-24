@@ -59,6 +59,8 @@
             return [];
         }
 
-
-
+        public function project()
+        {
+            return $this->hasMany(Project::class);
+        }
     }
