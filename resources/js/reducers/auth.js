@@ -4,14 +4,16 @@ export const auth = (state =[] , action ) => {
         case 'IS_TOKEN_VALID' :
             // console.log(action);
             return {
+                    ...state,
                     token : action.token,
                     isUserLoggedIn : true
                 }
             case 'USER_ID_CONTAINER' :
                 return {
+                        ...state,
                         userId : action.userId
                     }
         default :
-            return 'default';
+            return state;
     }
 }

@@ -36,7 +36,7 @@ class ProjectsController extends Controller
             'title' => $sProjectName,
             'creator_user_id' => $iUserId,
         ];
-        $oNewProject = Projectg::create($newProjectInputs);
+        $oNewProject = Project::create($newProjectInputs);
         if ($oNewProject->id) {
             return response()->json(
                 [

@@ -104,7 +104,6 @@ class ProjectCard extends Component {
   }
 }
 const mapStateToProps = (state) => {
-    // console.log(state.auth.userId);
     return {
       userId : state.auth.userId
     }

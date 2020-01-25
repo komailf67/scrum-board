@@ -82849,8 +82849,7 @@ function (_Component) {
             token = _response$data2.token;
         localStorage.setItem('access_token', token);
         window.location.replace("/");
-      })["catch"](function (error) {
-        console.log(error);
+      })["catch"](function (error) {// console.log(error);
       });
     });
 
@@ -83204,7 +83203,6 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
       var token = localStorage.getItem('access_token');
-      console.log(token);
       var config = {
         headers: {
           'Authorization': "bearer " + token
@@ -83219,8 +83217,6 @@ function (_Component) {
 
         _this.props.dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_4__["projectContainer"])(projects));
 
-        console.log(projects);
-
         _this.setState({
           projects: projects
         });
@@ -83234,7 +83230,6 @@ function (_Component) {
     key: "render",
     value: function render() {
       var projects = this.props.projects;
-      console.log(projects);
       var aProjects = [];
 
       if (projects) {
@@ -83256,9 +83251,9 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 var mapStateToProps = function mapStateToProps(state) {
-  // console.log(state);
   return {
-    projects: state.project.projects
+    projects: state.project.projects,
+    userId: state.auth.userId
   };
 };
 
@@ -83715,7 +83710,6 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 var mapStateToProps = function mapStateToProps(state) {
-  // console.log(state.auth.userId);
   return {
     userId: state.auth.userId
   };
@@ -83903,7 +83897,6 @@ function (_Component) {
           id = _this$props$project.id,
           title = _this$props$project.title,
           fullName = _this$props$project.fullName;
-      console.log(this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Card"], {
         style: {
           width: '18rem'
@@ -83969,6 +83962,12 @@ if (document.getElementById('root')) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "auth", function() { return auth; });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var auth = function auth() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -83977,18 +83976,18 @@ var auth = function auth() {
   switch (action.type) {
     case 'IS_TOKEN_VALID':
       // console.log(action);
-      return {
+      return _objectSpread({}, state, {
         token: action.token,
         isUserLoggedIn: true
-      };
+      });
 
     case 'USER_ID_CONTAINER':
-      return {
+      return _objectSpread({}, state, {
         userId: action.userId
-      };
+      });
 
     default:
-      return 'default';
+      return state;
   }
 };
 
@@ -84043,7 +84042,7 @@ var project = function project() {
       });
 
     default:
-      return 'default';
+      return state;
   }
 };
 

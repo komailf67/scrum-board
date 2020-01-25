@@ -15,7 +15,6 @@ class Projects extends Component{
 
     componentDidMount = () =>{
         let token = localStorage.getItem('access_token');
-        console.log(token);
         let config = {
             headers: {'Authorization': "bearer " + token}
         };
@@ -26,7 +25,6 @@ class Projects extends Component{
             let {projects , userId } = response.data;
             this.props.dispatch(userIdContainer(userId));
             this.props.dispatch(projectContainer(projects));
-            console.log(projects);
             this.setState({
                 projects : projects
             })
@@ -35,9 +33,7 @@ class Projects extends Component{
         });
     }
     render(){
-        
         let projects = this.props.projects;
-        console.log(projects);
         let aProjects = [];
         if (projects) {
             aProjects = $.map(projects , function(value , index){
@@ -53,9 +49,9 @@ class Projects extends Component{
     }
 }
 const mapStateToProps = (state) => {
-    // console.log(state);
     return{
-        projects : state.project.projects
+        projects : state.project.projects,
+        userId : state.auth.userId
     }
 }
 export default connect(mapStateToProps)(Projects);

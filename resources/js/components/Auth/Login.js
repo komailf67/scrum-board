@@ -26,7 +26,7 @@ class Login extends Component{
             localStorage.setItem('access_token',token);
             window.location.replace("/");
         }).catch(error =>{
-            console.log(error);
+            // console.log(error);
         })
     };
     

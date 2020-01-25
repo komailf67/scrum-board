@@ -6,6 +6,6 @@ export const project = (state =[] , action ) => {
                     projects : action.project
                 }
         default :
-            return 'default';
+            return state;
     }
 }

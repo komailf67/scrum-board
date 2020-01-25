@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 class ProjectCard extends Component {
     render() {
         let {id , title , fullName} = this.props.project;
-        console.log(this.props);
         return (
             <Card style={{ width: '18rem' }}>
                 <Card.Body>
