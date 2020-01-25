@@ -16,11 +16,10 @@ export const projectContainer = (project) => {
         type : 'PROJECT_CONTAINER',
         project
     }
-}
-// export const addNewProject = (projectName , userId) => {
-//     return{
-//         type : 'ADD_NEW_PROJECT',
-//         projectName,
-//         userId
-//     }
-// };
+};
+export const addNewProject = (newProject) => {
+    return{
+        type : 'ADD_NEW_PROJECT',
+        newProject
+    }
+};

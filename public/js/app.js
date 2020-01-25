@@ -82534,7 +82534,7 @@ var USER_DID_NOT_LOG_IN = 3;
 /*!***************************************!*\
   !*** ./resources/js/actions/index.js ***!
   \***************************************/
-/*! exports provided: isTokenValid, userIdContainer, projectContainer */
+/*! exports provided: isTokenValid, userIdContainer, projectContainer, addNewProject */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82542,6 +82542,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTokenValid", function() { return isTokenValid; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userIdContainer", function() { return userIdContainer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "projectContainer", function() { return projectContainer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addNewProject", function() { return addNewProject; });
 var isTokenValid = function isTokenValid(token) {
   return {
     type: 'IS_TOKEN_VALID',
@@ -82560,13 +82561,13 @@ var projectContainer = function projectContainer(project) {
     type: 'PROJECT_CONTAINER',
     project: project
   };
-}; // export const addNewProject = (projectName , userId) => {
-//     return{
-//         type : 'ADD_NEW_PROJECT',
-//         projectName,
-//         userId
-//     }
-// };
+};
+var addNewProject = function addNewProject(newProject) {
+  return {
+    type: 'ADD_NEW_PROJECT',
+    newProject: newProject
+  };
+};
 
 /***/ }),
 
@@ -83202,7 +83203,8 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
-      var token = localStorage.getItem('access_token');
+      var token = localStorage.getItem('access_token'); // console.log(token);
+
       var config = {
         headers: {
           'Authorization': "bearer " + token
@@ -83595,8 +83597,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions */ "./resources/js/actions/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -83616,6 +83619,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -83649,6 +83653,11 @@ function (_Component) {
             Authorization: 'Bearer ' + token
           }
         }).then(function (response) {
+          var newProject = response.data.newProject;
+          console.log(response);
+
+          _this.props.dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_4__["addNewProject"])(newProject));
+
           _this.setState({
             modal: !_this.state.modal
           });
@@ -83707,10 +83716,16 @@ function (_Component) {
   }]);
 
   return ProjectCard;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]); // const mapDispatchToProps = dispatch =>{
+//   // console.log(dispatch);
+//   return  {
+//   }
+// };
+
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
+    projects: state.project.projects,
     userId: state.auth.userId
   };
 };
@@ -84035,11 +84050,18 @@ var project = function project() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
+  // console.log('dfdfdffgfgf');
   switch (action.type) {
     case 'PROJECT_CONTAINER':
       return _objectSpread({}, state, {
         projects: action.project
       });
+
+    case 'ADD_NEW_PROJECT':
+      var newProjectIndex = Object.keys(state.projects).length;
+      return {
+        projects: _objectSpread({}, state.projects, _defineProperty({}, newProjectIndex, action.newProject))
+      };
 
     default:
       return state;

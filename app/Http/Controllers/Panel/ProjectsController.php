@@ -37,9 +37,11 @@ class ProjectsController extends Controller
             'creator_user_id' => $iUserId,
         ];
         $oNewProject = Project::create($newProjectInputs);
+        $oNewProject->fullName = $oNewProject->full_name;
         if ($oNewProject->id) {
             return response()->json(
                 [
+                    'newProject' => $oNewProject,
                     'success' => true,
                     'message' => 'The new project has been created successfully'
                 ]

@@ -15,6 +15,7 @@ class Projects extends Component{
 
     componentDidMount = () =>{
         let token = localStorage.getItem('access_token');
+        // console.log(token);
         let config = {
             headers: {'Authorization': "bearer " + token}
         };

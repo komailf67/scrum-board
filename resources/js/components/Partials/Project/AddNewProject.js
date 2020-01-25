@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Modal, { ModalHeader, ModalBody, ModalFooter } from './Modal';
 import { connect } from "react-redux";
 import $ from "jquery";
+import { addNewProject } from "../../../actions";
 import Axios from 'axios';
 
 // import './App.css';
@@ -41,9 +42,12 @@ class ProjectCard extends Component {
               }    
           }
         ).then(response => {
+          let {newProject} = response.data;
+          console.log(response);
+          this.props.dispatch(addNewProject(newProject));
           this.setState({
             modal : !this.state.modal
-          })
+          });
         }).catch(error => {
           console.log('There has been a problem with creating the project');
         });
@@ -103,8 +107,15 @@ class ProjectCard extends Component {
     );
   }
 }
+// const mapDispatchToProps = dispatch =>{
+//   // console.log(dispatch);
+//   return  {
+
+//   }
+// };
 const mapStateToProps = (state) => {
     return {
+      projects : state.project.projects,
       userId : state.auth.userId
     }
 }
